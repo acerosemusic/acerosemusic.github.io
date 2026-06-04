@@ -1,10 +1,314 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ace Moss // Ignition Sequence</title>
+    <style>
+        :root {
+            --bg-color: #0a0a0c;
+            --card-bg: #121216;
+            --accent-orange: #ff5722;
+            --accent-glow: rgba(255, 87, 34, 0.4);
+            --text-main: #f5f5f7;
+            --text-muted: #8e8e93;
+            --border-color: #2c2c35;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Courier New', Courier, monospace;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Scanline Overlay for Cyberpunk Feel */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 99999;
+            opacity: 0.4;
+            pointer-events: none;
+            background-size: 100% 4px, 6px 100%;
+        }
+
+        header {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--accent-orange);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--accent-orange);
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            padding: 40px 0 80px 0;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .status-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            border: 1px solid var(--accent-orange);
+            color: var(--accent-orange);
+            padding: 4px 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 8px var(--accent-glow);
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: transparent;
+            border: 1px solid var(--accent-orange);
+            color: var(--accent-orange);
+            padding: 12px 30px;
+            font-family: inherit;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: inset 0 0 0 0 var(--accent-orange);
+        }
+
+        .btn:hover {
+            background: var(--accent-orange);
+            color: var(--bg-color);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        /* Grid System */
+        .grid-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-top: 60px;
+            margin-bottom: 30px;
+        }
+
+        .grid-header h2 {
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .grid-header h2::before {
+            content: "// ";
+            color: var(--accent-orange);
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-orange);
+        }
+
+        .project-index {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 0.8rem;
+            color: var(--border-color);
+            font-weight: bold;
+        }
+
+        .project-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            color: var(--text-main);
+        }
+
+        .project-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+
+        .project-tech {
+            font-size: 0.75rem;
+            color: var(--accent-orange);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Footer Info */
+        footer {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .terminal-text {
+            color: #4af626;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            header, footer { flex-direction: column; gap: 20px; text-align: center; }
+            nav a { margin: 0 10px; }
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to my website!</h1>
-    <p>Hosted entirely on GitHub Pages.</p>
+
+    <header>
+        <a href="#" class="logo">IGNITION<span>_SEQUENCE</span></a>
+        <nav>
+            <a href="#" class="active">01// HOME</a>
+            <a href="#projects">02// PROJECTS</a>
+            <a href="#contact">03// CONTACT</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="status-badge">SYSTEM STATUS: READY FOR LAUNCH</div>
+            <h1>ACE MOSS</h1>
+            <p>Creative Developer, Technical Director, and System Architect. Forging digital pipelines, real-time engines, and robust interfaces from the ground up.</p>
+            <a href="#projects" class="btn">Initiate Sequence</a>
+        </section>
+
+        <section id="projects">
+            <div class="grid-header">
+                <h2>SELECTED WORKS</h2>
+                <span class="terminal-text">LOCating_files... OK</span>
+            </div>
+
+            <div class="project-grid">
+                <div class="project-card">
+                    <span class="project-index">01 / 04</span>
+                    <div>
+                        <h3>Hyperion Core</h3>
+                        <p>A WebGL-powered telemetry framework designed to track spatial coordinates and atmospheric data visualization in real time.</p>
+                    </div>
+                    <span class="project-tech">THREE.JS / WEBGL / RUST</span>
+                </div>
+
+                <div class="project-card">
+                    <span class="project-index">02 / 04</span>
+                    <div>
+                        <h3>Aether Engine</h3>
+                        <p>A procedural generation tool built for generating massive scale environment structures dynamically inside virtual pipelines.</p>
+                    </div>
+                    <span class="project-tech">C++ / VULKAN / GLSL</span>
+                </div>
+
+                <div class="project-card">
+                    <span class="project-index">03 / 04</span>
+                    <div>
+                        <h3>Overdrive UI</h3>
+                        <p>An open-source custom component architecture prioritizing ultra-low latency rendering frames for heavy industrial dashboards.</p>
+                    </div>
+                    <span class="project-tech">REACT / TAILWIND / WASM</span>
+                </div>
+
+                <div class="project-card">
+                    <span class="project-index">04 / 04</span>
+                    <div>
+                        <h3>Apex Protocols</h3>
+                        <p>End-to-end encrypted infrastructure automated to sync distributed microservices without losing payload integrity.</p>
+                    </div>
+                    <span class="project-tech">GO / DOCKER / GRPC</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div>&copy; 2026 ACE MOSS. ALL RIGHTS RESERVED.</div>
+        <div class="terminal-text">t-minus_0:00:00 // stable_state</div>
+    </footer>
+
 </body>
 </html>
