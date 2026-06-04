@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ace Moss: Portfolio</title>
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://acerosemusic.github.io/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://acerosemusic.github.io/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://acerosemusic.github.io/favicons/favicon-16x16.png">
+<link rel="icon" href="https://acerosemusic.github.io/favicons/favicon.ico">
+
+<style>
+:root{
+    --bg-color:#0a0a0c;
+    --card-bg:#121216;
+    --accent-orange:#ff5722;
+    --accent-glow:rgba(255,87,34,.4);
+    --text-main:#f5f5f7;
+    --text-muted:#8e8e93;
+    --border-color:#2c2c35;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:var(--bg-color);
+    color:var(--text-main);
+    font-family:'Courier New',monospace;
+    line-height:1.6;
+    overflow-x:hidden;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+        linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,.25) 50%),
+        linear-gradient(90deg, rgba(255,0,0,.06), rgba(0,255,0,.02), rgba(0,0,255,.06));
+    background-size:100% 4px,6px 100%;
+    opacity:.4;
+    pointer-events:none;
+    z-index:99999;
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    max-width:1100px;
+    margin:0 auto;
+    padding:20px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    background:rgba(10,10,12,.85);
+    backdrop-filter:blur(12px);
+
+    border-bottom:1px solid var(--border-color);
+}
+
+.logo{
+    font-size:1.5rem;
+    font-weight:bold;
+    letter-spacing:2px;
+    color:var(--text-main);
+    text-decoration:none;
+    transition:.3s ease;
+}
+
+.logo:hover{
+    color:var(--accent-orange);
+    text-shadow:0 0 20px var(--accent-glow);
+}
+
+nav a{
+    color:var(--text-muted);
+    text-decoration:none;
+    margin-left:18px;
+    transition:.3s ease;
+}
+
+nav a:hover{
+    color:var(--accent-orange);
+}
+
+main{
+    max-width:1100px;
+    margin:0 auto;
+    padding:60px 20px;
+}
+
+.hero{
+    padding:60px 0 100px;
+    border-bottom:1px dashed var(--border-color);
+}
+
+.hero h1{
+    font-size:4rem;
+    line-height:1.1;
+    margin-bottom:20px;
+}
+
+.hero p{
+    max-width:700px;
+    color:var(--text-muted);
+    font-size:1.15rem;
+}
+
+.grid-header{
+    margin:70px 0 30px;
+}
+
+.grid-header h2::before{
+    content:"// ";
+    color:var(--accent-orange);
+}
+
+.project-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+    gap:25px;
+}
+
+.project-card{
+    position:relative;
+    background:var(--card-bg);
+    border:1px solid var(--border-color);
+    padding:30px;
+    transition:
+        transform .35s ease,
+        border-color .35s ease,
+        box-shadow .35s ease;
+}
+
+.project-card:hover{
+    transform:translateY(-10px);
+    border-color:var(--accent-orange);
+    box-shadow:0 0 20px rgba(255,87,34,.15);
+}
+
+.project-index{
+    position:absolute;
+    top:15px;
+    right:20px;
+    color:var(--border-color);
+}
+
+.project-card h3{
+    margin-bottom:15px;
+}
+
+.project-card p{
+    color:var(--text-muted);
+    margin-bottom:20px;
+}
+
+.project-tech{
+    color:var(--accent-orange);
+    text-transform:uppercase;
+    font-size:.8rem;
+}
+
+.section-block{
+    text-align:center;
+    margin:90px 0;
+}
+
+.section-block a{
+    color:var(--accent-orange);
+}
+
+.links-row{
+    display:flex;
+    justify-content:center;
+    gap:16px;
+    margin-top:20px;
+}
+
+.links-row img{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    transition:.35s ease;
+}
+
+.links-row img:hover{
+    transform:scale(1.08);
+    box-shadow:0 0 25px var(--accent-glow);
+}
+
+footer{
+    max-width:1100px;
+    margin:0 auto;
+    padding:60px 20px;
+    border-top:1px solid var(--border-color);
+    text-align:center;
+    color:var(--text-muted);
+}
+
+.fade-in{
+    opacity:0;
+    transform:translateY(40px);
+    transition:opacity .8s ease, transform .8s ease;
+}
+
+.fade-in.visible{
+    opacity:1;
+    transform:translateY(0);
+}
+
+@media (max-width:768px){
+    header{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    nav{
+        display:flex;
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .hero h1{
+        font-size:2.7rem;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <a href="#" class="logo">Ace Moss - Portfolio</a>
+
+    <nav>
+        <a href="#">01// HOME</a>
+        <a href="#projects">02// WORKS</a>
+        <a href="#contact">03// CONTACT</a>
+        <a href="#links">04// LINKS</a>
+    </nav>
+</header>
+
+<main>
+
+<section class="hero fade-in">
+    <h1>ACE MOSS</h1>
+    <p>
+        Graphic Designer, Video Editor, Entertainment, Python Programming,
+        C++ Programming, Web Design, Game Development,
+        Music Production and Publishing, Project Management
+    </p>
+</section>
+
+<section id="projects">
+
+    <div class="grid-header fade-in">
+        <h2>SELECTED WORKS</h2>
+    </div>
+
+    <div class="project-grid">
+
+        <div class="project-card fade-in">
+            <span class="project-index">01 / 04</span>
+            <h3>STRUCK CRESCENDO</h3>
+            <p><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 14.4px;">As Struck Crescendo, Ace Moss independently wrote, recorded, produced, and published original music. They also managed the project's branding, artwork direction, distribution, and promotion, overseeing the creative process from concept to release.</span><br></p>
+            <span class="project-tech">Music Production & Publishing</span>
+        </div>
+
+        <div class="project-card fade-in">
+            <span class="project-index">02 / 04</span>
+            <h3>CODE DECO INTERNATIONAL</h3>
+            <p><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 14.4px;">Entrepreneur&nbsp;</span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 0.9rem;">Jason Nasralla</span><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 0.9rem;">&nbsp;challenged Ace Moss to design his companies image. Ace took a simple sketch of the logo and turned it into the perfect logo for Code Deco, filling Jason in every step of the design.</span><br></p>
+            <span class="project-tech">Graphic Design</span>
+        </div>
+
+        <div class="project-card fade-in">
+            <span class="project-index">03 / 04</span>
+            <h3>FORESTLY PITFALLS STUDIOS</h3>
+            <p><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 14.4px;">Forestly Pitfalls Studios (formerly MrCerealCast Studios) is Ace’s studio company to manage copyright, publishing, and more for Ace’s projects, including their independently made games, their music projects (acerose, Struck Crescendo, etc) and many more.</span><br></p>
+            <span class="project-tech">Game Development & Web Design</span>
+        </div>
+
+        <div class="project-card fade-in">
+            <span class="project-index">04 / 04</span>
+            <h3><span style="margin-bottom: 15px; font-size: 1.2rem; text-transform: uppercase; font-family: &quot;Courier New&quot;, Courier, monospace;">ON POINTE PROCESSING &amp; SECURITY INTELLIGENCE</span></h3>
+            <p><span style="font-family: &quot;Courier New&quot;, Courier, monospace; font-size: 14.4px;">Will Sydney, the owner of OPPSI hired Ace to develop an app for said company. Ace sucessfully delivered and when asked published the app on app download platforms. Ace also did work to update and modernize the logo and branding of the company.</span><br></p>
+            <span class="project-tech">App Design & Publishing</span>
+        </div>
+
+    </div>
+
+</section>
+
+<div id="contact" class="section-block fade-in">
+    <h2>CONTACT</h2>
+    <p>CONTACT ACE HERE</p>
+
+    <p>
+        <a href="mailto:contact@struckcrescendo.band">
+            contact@struckcrescendo.band
+        </a>
+    </p>
+
+    <p style="margin-top:15px;color:#666;">
+        SPAM, SCAMS, AND JOKES ALL WILL BE BLOCKED
+    </p>
+</div>
+
+<div id="links" class="section-block fade-in">
+    <h2>LINKS</h2>
+
+    <div class="links-row">
+        <a href="https://forestlypitfalls.studio" target="_blank">
+            <img src="https://acemoss.site/images/forestlycircle.png" alt="Forestly Pitfalls">
+        </a>
+
+        <a href="https://struckcrescendo.band" target="_blank">
+            <img src="https://acemoss.site/images/struckcrescendo_circle.png" alt="Struck Crescendo">
+        </a>
+    </div>
+</div>
+
+</main>
+
+<footer>
+    © 2026 FORESTLY PITFALLS STUDIOS LLC. ALL RIGHTS RESERVED.
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+        if(entry.isIntersecting){
+            entry.target.classList.add('visible');
+        }
+    });
+},{threshold:0.15});
+
+document.querySelectorAll('.fade-in').forEach(el=>{
+    observer.observe(el);
+});
+</script>
+
+</body>
+</html>
